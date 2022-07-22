@@ -2,14 +2,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { v4 as uuid4 } from 'uuid';
 import { genderEnum } from './enum/gender.enum';
+import { statusEnum } from './enum/status.enum';
 
 export type UserDocument = UserEntity & Document;
 
 @Schema({ collection: 'users', timestamps: true })
 export class UserEntity {
-  @Prop({ default: uuid4 })
-  _id: string;
-
   @Prop({ type: String, trim: true, required: true, unique: true })
   email: string;
 
@@ -29,6 +27,13 @@ export class UserEntity {
     enum: Object.values(genderEnum),
   })
   gender?: string;
+
+  @Prop({
+    type: String,
+    enum: Object.values(statusEnum),
+    default: statusEnum.pending,
+  })
+  status: string;
 }
 
 const UserSchema = SchemaFactory.createForClass(UserEntity);

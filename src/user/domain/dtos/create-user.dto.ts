@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsString,
   Length,
+  Matches,
   MaxLength,
 } from 'class-validator';
 
@@ -18,7 +19,11 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
-  @Length(8, 50)
+  @IsNotEmpty()
+  @Matches(
+    /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/,
+    { message: 'Weak password' },
+  )
   @ApiProperty({
     type: String,
     example: 'Aa123456',
@@ -42,5 +47,4 @@ export class CreateUserDto {
     example: 'Doe',
   })
   lastName: string;
-
 }

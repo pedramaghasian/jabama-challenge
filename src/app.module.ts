@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TokenModule } from './token/token.module';
 import { configModule } from './configure.root';
+import { MailModule } from './mail/mail.module';
 @Module({
   imports: [
     UserModule,
@@ -33,6 +34,7 @@ import { configModule } from './configure.root';
       inject: [ConfigService],
     }),
     TokenModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

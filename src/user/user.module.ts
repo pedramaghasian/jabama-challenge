@@ -17,4 +17,4 @@ import { UsersRepository } from './inftastructure/users.repository';
   ],
   exports: [{ provide: 'IUsersService', useClass: UsersService }],
 })
-export class UserModule { }
+export class UserModule {}
