@@ -5,18 +5,13 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-
-const environment = process.env.NODE_ENV || 'development';
+import { TokenModule } from './token/token.module';
+import { configModule } from './configure.root';
 @Module({
   imports: [
     UserModule,
     AuthModule,
-
-    ConfigModule.forRoot({
-      envFilePath: `.env.${environment}`,
-      isGlobal: true,
-    }),
-
+    configModule,
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -37,6 +32,7 @@ const environment = process.env.NODE_ENV || 'development';
       }),
       inject: [ConfigService],
     }),
+    TokenModule,
   ],
   controllers: [AppController],
   providers: [AppService],
