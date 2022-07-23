@@ -24,6 +24,11 @@
 ## steps to use the app
 1. **open swagger :** `http://localhost:3000/api/v1/docs/auth`
 
+## steps to use kibana
+1. **open kibana UI :** `http://localhost:5601/app/management/kibana/indexPatterns` 
+2. **create this indexPattern :** `user-management`
+3. **see you log :** `http://localhost:5601/app/discover`
+
 
 
 
