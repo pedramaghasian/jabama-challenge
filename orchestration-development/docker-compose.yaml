@@ -1,0 +1,92 @@
+version: '2'
+services:
+
+  fluentd:
+    container_name: fluentd
+    build: 
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    # entrypoint: ["sh","/bin/entrypoint.sh"]
+    tty: true
+    depends_on:
+      - elasticsearch
+    networks:
+      - esnet
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node 
+      - ELASTIC_USERNAME=elastic
+      - ELASTIC_PASSWORD=chgnelastic
+
+    expose:
+      - 9200
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.15.1
+    container_name: kibana
+    environment: 
+      ELASTICSEARCH_URL: "http://elasticsearch:9200"
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+      XPACK_MONITORING_ENABLED: "true"
+      XPACK_MONITORING_COLLECTION_ENABLED: "true"
+      XPACK_SECURITY_ENABLED: "true"
+      ELASTICSEARCH_USERNAME: "elastic"
+      ELASTICSEARCH_PASSWORD: "chgnelastic"
+    ports:
+      - '5601:5601'
+    depends_on: 
+       - elasticsearch 
+    networks:
+      - esnet
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user1
+      - MONGO_INITDB_ROOT_PASSWORD=pass1
+      - MONGODB_EXTRA_FLAGS=--wiredTigerCacheSizeGB=1
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          # cpus: '0.001'
+          memory: 350M
+          
+  # user-management:
+  #   container_name: user-management
+  #   restart: always
+  #   build: ../
+  #   tty: true
+  #   ports:
+  #     - "3000:3000"
+  #   env_file:
+  #     - ../.env.development
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         # cpus: 100M
+  #         memory: 600M
+
+
+volumes:
+  esdata1:
+    driver: local
+  mongodb:
+networks:
+  esnet:
+
