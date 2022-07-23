@@ -1,1 +1,1 @@
-export * from './create-user-token.dto'
+export * from './create-user-token.dto';

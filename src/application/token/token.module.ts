@@ -15,4 +15,4 @@ import {
   providers: [TokenService, TokenRepository],
   exports: [TokenService],
 })
-export class TokenModule { }
+export class TokenModule {}
