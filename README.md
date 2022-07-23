@@ -22,7 +22,7 @@
 4. **execute the app :**  `npm run start:dev`
 
 ## steps to use the app
-1. **open swagger :** `http://localhost:3000/api/v1/docs/auth`
+1. **open swagger :** `http://localhost:3000/api/v1/docs`
 
 ## steps to use kibana
 1. **open kibana UI :** `http://localhost:5601/app/management/kibana/indexPatterns` 
