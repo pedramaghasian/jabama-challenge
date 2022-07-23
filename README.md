@@ -9,11 +9,9 @@
  4. **logging :**   EFK stack = ElasticSearch + Fluentd + Kibana
  5. **DevOps :**  docker + docker-compose
 
-
 ## follow below steps to ready your pc : 
 1. **install the Node.js :** [Node.js](https://nodejs.org/en/)
 2. **Download or clone this repo :**  `git clone https://github.com/pedramaghasian/jabama-challenge`
-
 
 ## steps to run the app :
 1. **go to the package directory :** `cd ./user-management`
@@ -29,6 +27,7 @@
 2. **create this indexPattern :** `user-management`
 3. **see you log :** `http://localhost:5601/app/discover`
 
-
-
-
+## In the next update of this program, the following features and improvements will be added
+1. **use RabbitMQ for queuing the emails**
+2. **add e2e test**
+3. **complete unit test**
