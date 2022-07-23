@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
+import { UserModule } from './application/user/user.module';
+import { AuthModule } from './application/auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TokenModule } from './token/token.module';
-import { configModule } from './configure.root';
-import { MailModule } from './mail/mail.module';
+import { TokenModule } from './application/token/token.module';
+import { configModule } from '../config/app.config';
+import { MailModule } from './infrastructure/mail/mail.module';
 @Module({
   imports: [
     UserModule,
